@@ -42,8 +42,18 @@ function draw() {
   textAlign(LEFT);
   text(confiaza, 10, height - 4);
 
+  // Si la etiqueta es "Audifonos", cambia los colores del fondo aleatoriamente
+  if (label == "Audifonos" && confiaza > 0.7) {
+    background(random(255), random(255), random(255));
+
+    fill(0);
+    textSize(50);
+    textAlign(CENTER);
+    text("¡Vive la Música!", width / 2, height / 2);
+  }
+
   // Condicional para cambiar el fondo a turquesa
-  if (label == "Gorra" && confiaza > 0.9) {
+  if (label == "Celular" && confiaza > 0.7) {
     filter(INVERT);
     filter(GRAY);
 
@@ -56,9 +66,7 @@ function draw() {
 
 // Get a prediction for the current video frame
 function classifyVideo() {
-  //flippedVideo = ml5.flipImage(video)
   classifier.classify(video, gotResult);
-  //flippedVideo.remove();
 }
 
 // When we get a result
@@ -70,7 +78,6 @@ function gotResult(results, error) {
   }
 
   // The results are in an array ordered by confidence.
-  // console.log(results[0]);
   label = results[0].label;
   confiaza = results[0].confidence;
   // Classifiy again!
